@@ -16,11 +16,11 @@ if [ -z "$noRelease" ];
 then
   lastVersion=$(changie latest)
   lastSeenCommit=$(cat .changes/$lastVersion.md | grep --only-matching --max-count 1 -E '\b[0-9a-f]{5,40}\b')
-else
-  lastSeenCommit=$(git rev-list --max-parents=0 HEAD --abbrev-commit)
-fi
 
-commit=$(git log --oneline --pretty=format:'%h - %s' --abbrev-commit $lastSeenCommit..HEAD)
+  commit=$(git log --no-merges --oneline --pretty=format:'%h - %s' --abbrev-commit $lastSeenCommit..HEAD)
+else
+  commit=$(git log --no-merges --oneline --pretty=format:'%h - %s' --abbrev-commit)
+fi
 
 # deal with case of no new commit
 if [ -n "$commit" ]; then
