@@ -1,5 +1,8 @@
 name: 'Auto changie'
 description: 'Changie action with auto numbering'
+branding:
+  icon: file-plus
+  color: purple
 inputs:
   changie-version:
     description: 'Changie version'
