@@ -5,13 +5,17 @@ inputs:
     description: 'Changie version'
     default: 'latest'
     required: false
+  node-version:
+    description: 'Node version use to setup changie'
+    default: '20'
+    required: false
 runs:
   using: "composite"
   steps:
     - name: Setup node
       uses: actions/setup-node@v4.0.2
       with:
-        node-version: 20
+        node-version: ${{ inputs.node-version }}
 
     - name: Install changie
       run: npm i -g changie@${{ inputs.changie-version }}
