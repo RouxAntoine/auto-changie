@@ -1,0 +1,29 @@
+name: 'Auto changie'
+description: 'Changie action with auto numbering'
+inputs:
+  changie-version:
+    description: 'Changie version'
+    default: 'latest'
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Setup node
+      uses: actions/setup-node@v4.0.2
+      with:
+        node-version: 20
+
+    - name: Install changie
+      run: npm i -g changie@${{ input.changie-version }}
+      shell: bash
+
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    - name: Update changelog with last commit
+      run: script.sh
+      shell: bash
+
